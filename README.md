@@ -15,15 +15,19 @@ This is a Django-based website project featuring user registration, login, profi
 
 ### Admin Panel - User Management
 
-![Admin Panel](screenshots/admin_panel.png)
+![Admin Panel](django_website/Asset/admin.png)
 
 ### User Registration Page
 
-![Register Page](screenshots/register_page.png)
+![Register Page](django_website/Asset/register.png)
 
 ### User Login Page
 
-![Login Page](screenshots/login_page.png)
+![Login Page](django_website/Asset/login.png)
+
+### User Profile Page
+
+![User Profile](django_website/Asset/user.png)
 
 ## Installation
 
