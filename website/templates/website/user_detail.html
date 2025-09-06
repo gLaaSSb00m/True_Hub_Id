@@ -1,0 +1,223 @@
+{% extends 'website/base.html' %}
+
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+<div class="user-detail-container">
+    <h1>User Details: {{ user.username }}</h1>
+
+    <!-- User Information -->
+    <div class="user-info-section">
+        <h2>Basic Information</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <strong>Username:</strong> {{ user.username }}
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> {{ user.email }}
+            </div>
+            <div class="info-item">
+                <strong>Status:</strong>
+                <span class="status-display">
+                    {{ user_status.get_status_icon }} {{ user_status.get_status_display }}
+                </span>
+            </div>
+            <div class="info-item">
+                <strong>Date Joined:</strong> {{ user.date_joined|date:"M d, Y" }}
+            </div>
+            <div class="info-item">
+                <strong>Last Login:</strong> {{ user.last_login|date:"M d, Y H:i" }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Information -->
+    {% if profile %}
+    <div class="profile-section">
+        <h2>Profile Information</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <strong>Profile Picture:</strong><br>
+                {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="max-width: 150px; max-height: 150px; border-radius: 8px;">
+                {% else %}
+                    <p>No profile picture uploaded.</p>
+                {% endif %}
+            </div>
+            <div class="info-item">
+                <strong>Full Name:</strong> {{ profile.name }}
+            </div>
+            <div class="info-item">
+                <strong>Father's Name:</strong> {{ profile.father_name }}
+            </div>
+            <div class="info-item">
+                <strong>Mother's Name:</strong> {{ profile.mother_name }}
+            </div>
+            <div class="info-item">
+                <strong>Date of Birth:</strong> {{ profile.date_of_birth|date:"M d, Y" }}
+            </div>
+            <div class="info-item">
+                <strong>Birth Place:</strong> {{ profile.birth_place }}
+            </div>
+            <div class="info-item">
+                <strong>Permanent Address:</strong> {{ profile.permanent_address }}
+            </div>
+            <div class="info-item">
+                <strong>Post Code:</strong> {{ profile.post_code }}
+            </div>
+            <div class="info-item">
+                <strong>Post Office:</strong> {{ profile.post_office }}
+            </div>
+            <div class="info-item">
+                <strong>Upozilla:</strong> {{ profile.upozilla }}
+            </div>
+            <div class="info-item">
+                <strong>Zila:</strong> {{ profile.zila }}
+            </div>
+            <div class="info-item">
+                <strong>City:</strong> {{ profile.city }}
+            </div>
+            <div class="info-item">
+                <strong>Blood Group:</strong> {{ profile.blood_group }}
+            </div>
+            <div class="info-item">
+                <strong>Role:</strong> {{ profile.get_role_display }}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="profile-section">
+        <h2>Profile Information</h2>
+        <p>No profile information available.</p>
+    </div>
+    {% endif %}
+
+    <!-- Action Buttons -->
+    <div class="action-section">
+        <h2>Actions</h2>
+        <form method="post" class="action-buttons">
+            {% csrf_token %}
+            <button type="submit" name="action" value="pending" class="action-btn pending-btn">Set Pending</button>
+            <button type="submit" name="action" value="accept" class="action-btn accept-btn">Accept</button>
+            <button type="submit" name="action" value="reject" class="action-btn reject-btn">Reject</button>
+            <button type="submit" name="action" value="action" class="action-btn action-btn">Set Action Required</button>
+        </form>
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-section">
+        <a href="{% url 'admin_panel' %}" class="back-btn">← Back to Admin Panel</a>
+    </div>
+</div>
+
+<style>
+.user-detail-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.user-info-section,
+.profile-section,
+.action-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.info-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-item strong {
+    display: inline-block;
+    width: 150px;
+    color: #555;
+}
+
+.status-display {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.pending-btn {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.pending-btn:hover {
+    background-color: #e0a800;
+}
+
+.accept-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.accept-btn:hover {
+    background-color: #218838;
+}
+
+.reject-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.reject-btn:hover {
+    background-color: #c82333;
+}
+
+.action-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.action-btn:hover {
+    background-color: #5a6268;
+}
+
+.back-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <h2>Create Your Account</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <div class="password-container">
+                        {{ field }}
+                        {% if field.name == 'password1' %}
+                            <span class="password-toggle" onclick="togglePassword('id_password1')">
+                                <i class="eye-icon" id="eye-icon-password1">👁️</i>
+                            </span>
+                        {% elif field.name == 'password2' %}
+                            <span class="password-toggle" onclick="togglePassword('id_password2')">
+                                <i class="eye-icon" id="eye-icon-password2">👁️</i>
+                            </span>
+                        {% endif %}
+                    </div>
+                    {% if field.errors %}
+                        <div style="color: red; font-size: 14px;">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+    <script>
+        function togglePassword(fieldId) {
+            var passwordField = document.getElementById(fieldId);
+            var eyeIcon = document.getElementById('eye-icon-' + fieldId.split('_')[1]);
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.textContent = '🙈';
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.textContent = '👁️';
+            }
+        }
+    </script>
+{% endblock %}

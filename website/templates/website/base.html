@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'website/style.css' %}">
+    <script src="{% static 'website/script.js' %}" defer></script>
+</head>
+<body>
+    <div class="header">
+        {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                <a href="{% url 'admin_panel' %}" class="admin-btn">Admin Panel</a>
+            {% endif %}
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="apply-btn">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="apply-btn">Login</a>
+            <a href="{% url 'register' %}" class="apply-btn">Register</a>
+        {% endif %}
+    </div>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

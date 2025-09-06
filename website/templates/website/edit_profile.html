@@ -1,0 +1,122 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <h2>Edit Your Profile</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h4>Profile Picture</h4>
+            <div class="form-group">
+                <label for="{{ form.profile_picture.id_for_label }}">{{ form.profile_picture.label }}</label>
+                {{ form.profile_picture }}
+                {% if form.profile_picture.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.profile_picture.errors }}</div>
+                {% endif %}
+                {% if profile.profile_picture %}
+                    <p>Current profile picture:</p>
+                    <img src="{{ profile.profile_picture.url }}" alt="Current Profile Picture" style="max-width: 150px; max-height: 150px; border-radius: 8px;">
+                {% endif %}
+            </div>
+            <h4>Personal Information</h4>
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.father_name.id_for_label }}">{{ form.father_name.label }}</label>
+                {{ form.father_name }}
+                {% if form.father_name.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.father_name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.mother_name.id_for_label }}">{{ form.mother_name.label }}</label>
+                {{ form.mother_name }}
+                {% if form.mother_name.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.mother_name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }}</label>
+                {{ form.date_of_birth }}
+                {% if form.date_of_birth.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.date_of_birth.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.birth_place.id_for_label }}">{{ form.birth_place.label }}</label>
+                {{ form.birth_place }}
+                {% if form.birth_place.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.birth_place.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.blood_group.id_for_label }}">{{ form.blood_group.label }}</label>
+                {{ form.blood_group }}
+                {% if form.blood_group.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.blood_group.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <h4>Address Information</h4>
+            <div class="form-group">
+                <label for="{{ form.permanent_address.id_for_label }}">{{ form.permanent_address.label }}</label>
+                {{ form.permanent_address }}
+                {% if form.permanent_address.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.permanent_address.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.post_code.id_for_label }}">{{ form.post_code.label }}</label>
+                {{ form.post_code }}
+                {% if form.post_code.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.post_code.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.post_office.id_for_label }}">{{ form.post_office.label }}</label>
+                {{ form.post_office }}
+                {% if form.post_office.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.post_office.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.upozilla.id_for_label }}">{{ form.upozilla.label }}</label>
+                {{ form.upozilla }}
+                {% if form.upozilla.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.upozilla.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.zila.id_for_label }}">{{ form.zila.label }}</label>
+                {{ form.zila }}
+                {% if form.zila.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.zila.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+                {{ form.city }}
+                {% if form.city.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.city.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.role.id_for_label }}">{{ form.role.label }}</label>
+                {{ form.role }}
+                {% if form.role.errors %}
+                    <div style="color: red; font-size: 14px;">{{ form.role.errors }}</div>
+                {% endif %}
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn" style="margin-right: 10px;">Save</button>
+                <a href="{% url 'profile' %}" class="btn" style="background-color: #6c757d;">Don't Save</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% if article %}
+        <div class="card">
+            <h1>{{ article.title }}</h1>
+            <p><small>Published on {{ article.created_at|date:"F j, Y" }}</small></p>
+            <p>{{ article.content }}</p>
+        </div>
+    {% else %}
+        <div class="card">
+            <p>No article available.</p>
+        </div>
+    {% endif %}
+{% endblock %}

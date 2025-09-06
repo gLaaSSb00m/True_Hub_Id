@@ -1,0 +1,115 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <h1>Admin Panel - User Management</h1>
+
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+        <a href="?status=all" class="filter-btn {% if status_filter == 'all' %}active{% endif %}">All</a>
+        <a href="?status=action" class="filter-btn {% if status_filter == 'action' %}active{% endif %}">Action Required</a>
+        <a href="?status=pending" class="filter-btn {% if status_filter == 'pending' %}active{% endif %}">Pending</a>
+        <a href="?status=accept" class="filter-btn {% if status_filter == 'accept' %}active{% endif %}">Accepted</a>
+        <a href="?status=reject" class="filter-btn {% if status_filter == 'reject' %}active{% endif %}">Rejected</a>
+    </div>
+
+    <!-- User List -->
+    <div class="user-list">
+        {% for user_data in user_list %}
+        <div class="user-item">
+            <div class="user-info">
+                <a href="{% url 'user_detail' user_data.user.id %}" class="user-link">
+                    {{ user_data.user.username }}
+                </a>
+                <span class="status-icon">{{ user_data.icon }}</span>
+                <span class="status-text">{{ user_data.status.get_status_display }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.admin-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.user-list {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.user-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px;
+    transition: background-color 0.2s;
+}
+
+.user-item:hover {
+    background-color: #f9f9f9;
+    color: black; /* Change all text color inside user-item to black on hover */
+}
+
+.user-item:hover .user-link,
+.user-item:hover .status-text {
+    color: black; /* Ensure username and status text also change to black on hover */
+}
+
+.user-item:last-child {
+    border-bottom: none;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-link {
+    font-weight: bold;
+    color: #f0f0f0; /* Changed to light color for better contrast */
+    text-decoration: none;
+}
+
+.user-link:hover {
+    text-decoration: underline;
+    color: black; /* Change text color to black on hover */
+}
+
+.status-icon {
+    font-size: 18px;
+}
+
+.status-text {
+    color: #f0f0f0; /* Changed to light color for better contrast */
+    font-size: 14px;
+}
+</style>
+{% endblock %}
